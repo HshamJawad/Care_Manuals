@@ -1,0 +1,726 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+  <title>CARE-Iraq – Low Literacy Training Manuals</title>
+  <link rel="manifest" href="manifest.json">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+  <meta name="apple-mobile-web-app-title" content="CARE-Manuals">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="theme-color" content="#f0f2f5">
+  <link rel="icon" type="image/png" sizes="192x192" href="icon-192.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
+  <link rel="apple-touch-icon" sizes="192x192" href="icon-192.png">
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800;900&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --care-orange: #E87722;
+      --lotus-red:   #C0143C;
+      --bg:          #f0f2f5;
+      --surface:     #ffffff;
+      --surface-2:   #f7f8fa;
+      --text-primary:#1a1a2e;
+      --text-muted:  #6b7280;
+      --text-light:  #9ca3af;
+      --border:      #e2e5ea;
+      --border-soft: #ebebeb;
+
+      /* Participant button colors */
+      --p1: #009FDA; --p2: #F7941D; --p3: #39B54A;
+      --p4: #EC008C; --p5: #7B2D8B; --p6: #00A99D;
+
+      /* Mentor button colors — deeper tones */
+      --m1: #1A6B9C; --m2: #C97014; --m3: #2A8C3E;
+      --m4: #B8156E; --m5: #5C2480; --m6: #0D7D6E;
+    }
+
+    * { margin:0; padding:0; box-sizing:border-box; }
+
+    body {
+      font-family: 'Cairo','Plus Jakarta Sans', sans-serif;
+      background: var(--bg);
+      min-height: 100vh;
+      color: var(--text-primary);
+      overflow-x: hidden;
+      overscroll-behavior: none;
+      padding-bottom: env(safe-area-inset-bottom);
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ── HEADER ── */
+    .header-wrapper {
+      position: relative; z-index: 10;
+      max-width: 1300px; margin: 0 auto;
+      padding: 28px 40px 18px;
+      background: var(--surface);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .header-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+      margin-bottom: 16px;
+    }
+
+    .logo-wrap {
+      flex: 0 0 auto;
+      width: 100px; height: 100px;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .logo-wrap img {
+      max-width: 100px; max-height: 100px;
+      width: auto; height: auto;
+      object-fit: contain;
+      filter: drop-shadow(0 2px 6px rgba(0,0,0,.10));
+      border-radius: 10px; display: block;
+    }
+
+    .header-center {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 10px;
+    }
+
+    /* ── LANG BUTTON ── */
+    .lang-flip {
+      background: var(--surface);
+      border: 1.5px solid var(--border);
+      border-radius: 50px;
+      padding: 0;
+      cursor: pointer;
+      font-family: inherit;
+      overflow: hidden;
+      box-shadow: 0 1px 4px rgba(0,0,0,.06);
+      transition: border-color .2s ease, background .2s ease;
+    }
+    .lang-flip:hover {
+      border-color: var(--care-orange);
+      background: #fff8f4;
+    }
+    .lang-flip:active { opacity: .88; }
+    .lang-flip-inner {
+      display: flex;
+      align-items: center;
+      height: 44px;
+      padding: 0 6px 0 14px;
+    }
+    .flip-globe {
+      width: 16px; height: 16px;
+      color: var(--text-muted);
+      margin-inline-end: 8px;
+      flex-shrink: 0;
+    }
+    .flip-track {
+      position: relative;
+      width: 72px; height: 44px;
+      overflow: hidden;
+      border-radius: 0 40px 40px 0;
+    }
+    [dir="rtl"] .flip-track { border-radius: 40px 0 0 40px; }
+    .flip-label {
+      position: absolute; inset: 0;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 14px; font-weight: 800;
+      letter-spacing: 2px; color: white;
+      transition: transform .4s cubic-bezier(.4,0,.2,1), opacity .4s ease;
+    }
+    .flip-ar {
+      background: linear-gradient(135deg, var(--care-orange), var(--lotus-red));
+      transform: translateY(0); opacity: 1;
+    }
+    .flip-en {
+      background: linear-gradient(135deg, #4f8ef7, #7c3aed);
+      transform: translateY(100%); opacity: 0;
+    }
+    .lang-flip.en-active .flip-ar { transform: translateY(-100%); opacity: 0; }
+    .lang-flip.en-active .flip-en { transform: translateY(0);     opacity: 1; }
+    .flip-icon {
+      width: 15px; height: 15px;
+      color: var(--text-light);
+      margin: 0 10px 0 8px;
+      flex-shrink: 0;
+    }
+
+    /* ── TITLE ── */
+    .header-title { text-align: center; }
+    .header-title h1 {
+      font-size: 34px; font-weight: 900;
+      letter-spacing: -.3px; line-height: 1.25;
+      color: var(--text-primary);
+    }
+    .header-title p {
+      font-size: 12px; color: var(--text-muted);
+      margin-top: 4px; font-weight: 600;
+      letter-spacing: 1.2px; text-transform: uppercase;
+    }
+
+    /* ── INSTALL BANNER ── */
+    .install-banner {
+      display: none;
+      max-width: 1300px; margin: 0 auto;
+      padding: 12px 40px;
+      background: linear-gradient(135deg, #f0f7ff, #f5f0ff);
+      border-bottom: 1px solid var(--border);
+    }
+    .install-banner.visible { display: block; }
+    .install-inner {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 14px;
+      flex-wrap: wrap;
+    }
+    .install-text {
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--text-primary);
+    }
+    .install-btn {
+      display: inline-flex; align-items: center; gap: 6px;
+      padding: 8px 20px;
+      background: linear-gradient(135deg, #4f8ef7, #6c5ce7);
+      color: white; border: none; border-radius: 50px;
+      font-family: inherit; font-size: 13px; font-weight: 700;
+      cursor: pointer;
+      box-shadow: 0 2px 8px rgba(79,142,247,.3);
+      transition: filter .2s;
+    }
+    .install-btn:hover { filter: brightness(.92); }
+    .install-btn:active { filter: brightness(.85); }
+    .install-btn svg { width: 16px; height: 16px; }
+    .install-dismiss {
+      background: none; border: none; cursor: pointer;
+      color: var(--text-light); font-size: 18px;
+      padding: 4px 8px; line-height: 1;
+    }
+
+    /* iOS install banner */
+    .ios-banner { display: none; }
+    .ios-banner.visible { display: block; }
+    .ios-inner { flex-direction: row; }
+    .ios-instructions p {
+      font-size: 14px; font-weight: 600;
+      color: var(--text-primary); margin: 0;
+      line-height: 1.6;
+    }
+    .ios-share-icon {
+      display: inline-block;
+      width: 20px; height: 20px;
+      vertical-align: middle;
+      color: #007AFF;
+      margin: 0 3px;
+    }
+
+    /* ── DIVIDER ── */
+    .header-line {
+      max-width: 1300px; margin: 0 auto 28px;
+      padding: 0 40px; position: relative; z-index: 10;
+    }
+    .header-line hr {
+      border: none; height: 1px;
+      background: var(--border-soft);
+    }
+
+    /* ── CARDS GRID ── */
+    .container {
+      max-width: 1100px; margin: 0 auto 50px;
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 24px; padding: 0 40px;
+      position: relative; z-index: 10;
+    }
+
+    [dir="rtl"] .card-participant { order: 1; }
+    [dir="rtl"] .card-mentor     { order: 2; }
+    [dir="ltr"] .card-mentor     { order: 1; }
+    [dir="ltr"] .card-participant { order: 2; }
+
+    .card {
+      background: var(--surface);
+      border-radius: 20px;
+      padding: 28px 20px 24px;
+      border: 1px solid var(--border);
+      box-shadow: 0 2px 12px rgba(0,0,0,.05);
+      display: flex; flex-direction: column; align-items: center;
+      position: relative; overflow: hidden;
+    }
+    .card::after {
+      content: ''; position: absolute;
+      top: 0; left: 0; right: 0; height: 4px;
+      border-radius: 20px 20px 0 0;
+    }
+    .card-mentor::after    { background: linear-gradient(90deg, var(--care-orange), #c45c0a); }
+    .card-participant::after { background: linear-gradient(90deg, var(--lotus-red), #8b0e2b); }
+    .card > * { position: relative; z-index: 1; }
+
+    /* ── CARD TITLE ── */
+    .card-header {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+    .card-header h2 {
+      font-size: 28px; font-weight: 800;
+      line-height: 1.3;
+      color: var(--text-primary);
+    }
+    .card-header h2 small {
+      display: block; font-size: 15px;
+      color: var(--text-muted); font-weight: 600;
+      margin-bottom: 2px; letter-spacing: .3px;
+    }
+
+    /* ── MODULE BUTTONS ── */
+    .module-list {
+      width: 100%;
+      display: flex; flex-direction: column;
+      gap: 10px;
+    }
+
+    .module-btn {
+      display: flex; align-items: center;
+      justify-content: center; gap: 8px;
+      padding: 14px 16px;
+      color: white; text-decoration: none;
+      border-radius: 12px; font-size: 16px;
+      font-weight: 700; width: 100%;
+      font-family: inherit;
+      letter-spacing: .2px;
+      transition: filter .18s ease, box-shadow .18s ease;
+      text-align: center;
+      line-height: 1.35;
+      border: none; cursor: pointer;
+      box-shadow: 0 2px 6px rgba(0,0,0,.12);
+      position: relative;
+      overflow: hidden;
+    }
+    .module-btn::before {
+      content: '';
+      position: absolute; inset: 0;
+      background: linear-gradient(180deg, rgba(255,255,255,.12) 0%, transparent 60%);
+      pointer-events: none;
+    }
+    .module-btn:hover  { filter: brightness(.90); box-shadow: 0 3px 10px rgba(0,0,0,.18); }
+    .module-btn:active { filter: brightness(.82); }
+
+    .module-btn .pdf-icon {
+      width: 18px; height: 18px; flex-shrink: 0;
+      opacity: .9;
+    }
+
+    /* Participant module colors */
+    .card-participant .mod-1 { background: var(--p1); }
+    .card-participant .mod-2 { background: var(--p2); }
+    .card-participant .mod-3 { background: var(--p3); }
+    .card-participant .mod-4 { background: var(--p4); }
+    .card-participant .mod-5 { background: var(--p5); }
+    .card-participant .mod-6 { background: var(--p6); }
+
+    /* Mentor module colors — deeper professional tones */
+    .card-mentor .mod-1 { background: var(--m1); }
+    .card-mentor .mod-2 { background: var(--m2); }
+    .card-mentor .mod-3 { background: var(--m3); }
+    .card-mentor .mod-4 { background: var(--m4); }
+    .card-mentor .mod-5 { background: var(--m5); }
+    .card-mentor .mod-6 { background: var(--m6); }
+
+    /* ── FOOTER ── */
+    footer {
+      text-align: center; font-size: 12px;
+      color: var(--text-light);
+      padding: 18px 20px 36px;
+      max-width: 1300px; margin: 0 auto;
+      position: relative; z-index: 10;
+      letter-spacing: .4px;
+      border-top: 1px solid var(--border-soft);
+    }
+
+    img { -webkit-user-drag: none; user-select: none; }
+
+    /* lang visibility */
+    .en { display: none; }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 900px) {
+      .header-wrapper { padding-left: 20px; padding-right: 20px; }
+      .header-line    { padding-left: 20px; padding-right: 20px; }
+      .container      { padding: 0 20px; gap: 18px; }
+      .install-banner { padding-left: 20px; padding-right: 20px; }
+    }
+
+    @media (max-width: 680px) {
+      .header-wrapper { padding: 20px 16px 14px; }
+      .header-top { flex-wrap: wrap; justify-content: center; gap: 12px; }
+      .logo-wrap  { width: 72px; height: 72px; }
+      .logo-wrap img { max-width: 72px; max-height: 72px; }
+      .header-title h1 { font-size: 26px; }
+      .header-title p  { font-size: 11px; }
+
+      .container {
+        grid-template-columns: 1fr;
+        gap: 16px; padding: 0 14px;
+      }
+
+      .card-participant { order: 1 !important; }
+      .card-mentor      { order: 2 !important; }
+
+      .card { padding: 22px 16px 20px; border-radius: 16px; }
+      .card-header h2       { font-size: 24px; }
+      .card-header h2 small { font-size: 14px; }
+
+      .module-btn { font-size: 15px; padding: 13px 14px; border-radius: 10px; }
+
+      .install-banner { padding: 10px 14px; }
+      .install-text { font-size: 13px; }
+    }
+
+    @media (max-width: 400px) {
+      .logo-wrap { width: 56px; height: 56px; }
+      .logo-wrap img { max-width: 56px; max-height: 56px; }
+      .header-title h1 { font-size: 22px; }
+      .card-header h2  { font-size: 21px; }
+      .module-btn { font-size: 14px; padding: 12px 12px; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="header-wrapper">
+  <div class="header-top">
+    <div class="logo-wrap">
+      <img src="care_logo_orange.png" alt="CARE">
+    </div>
+
+    <div class="header-center">
+      <button class="lang-flip" id="lang-flip-btn" onclick="toggleLang()" title="Switch language / تغيير اللغة">
+        <span class="lang-flip-inner">
+          <svg class="flip-globe" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="12" r="10"/>
+            <path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>
+          </svg>
+          <span class="flip-track">
+            <span class="flip-label flip-ar">AR</span>
+            <span class="flip-label flip-en">EN</span>
+          </span>
+          <svg class="flip-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+            <path d="M5 12h14M15 7l5 5-5 5"/>
+          </svg>
+        </span>
+      </button>
+    </div>
+
+    <div class="logo-wrap">
+      <img src="the_lotus_flower_logo.jpg" alt="The Lotus Flower">
+    </div>
+  </div>
+  <div class="header-title">
+    <h1 class="ar">الأدلة التدريبية</h1>
+    <h1 class="en">Training Guidance Manuals</h1>
+    <p class="ar">برنامج CARE – The Lotus Flower</p>
+    <p class="en">CARE – The Lotus Flower Program</p>
+  </div>
+</div>
+
+<!-- Install Banner — Android / Desktop (beforeinstallprompt) -->
+<div class="install-banner" id="installBanner">
+  <div class="install-inner">
+    <span class="install-text ar">تثبيت التطبيق على جهازك</span>
+    <span class="install-text en">Install app on your device</span>
+    <button class="install-btn" id="installBtn" onclick="installApp()">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+        <path d="M12 5v14M5 12l7 7 7-7"/>
+        <line x1="4" y1="21" x2="20" y2="21"/>
+      </svg>
+      <span class="ar">تثبيت</span>
+      <span class="en">Install</span>
+    </button>
+    <button class="install-dismiss" onclick="dismissInstall()" title="Close">&times;</button>
+  </div>
+</div>
+
+<!-- Install Banner — iOS Safari -->
+<div class="install-banner ios-banner" id="iosBanner">
+  <div class="install-inner ios-inner">
+    <div class="ios-instructions">
+      <p class="ar">لتثبيت التطبيق: اضغط على زر المشاركة
+        <svg class="ios-share-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M12 3v12"/><path d="M8 7l4-4 4 4"/><rect x="4" y="13" width="16" height="8" rx="2"/></svg>
+        ثم اختر <strong>"إضافة إلى الشاشة الرئيسية"</strong>
+      </p>
+      <p class="en">To install: tap Share
+        <svg class="ios-share-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M12 3v12"/><path d="M8 7l4-4 4 4"/><rect x="4" y="13" width="16" height="8" rx="2"/></svg>
+        then <strong>"Add to Home Screen"</strong>
+      </p>
+    </div>
+    <button class="install-dismiss" onclick="dismissIosBanner()" title="Close">&times;</button>
+  </div>
+</div>
+
+<div class="header-line"><hr></div>
+
+<main class="container">
+
+  <!-- ═══ Mentor Card ═══ -->
+  <div class="card card-mentor">
+    <div class="card-header">
+      <h2 class="ar"><small>Mentor Guide</small>دليل المرشدة</h2>
+      <h2 class="en"><small>Mentor Guide</small>Mentor Manual</h2>
+    </div>
+    <div class="module-list">
+      <!-- Module 1 -->
+      <a href="Mentor_Module 1.pdf" target="_blank" class="module-btn mod-1 ar">
+        <svg class="pdf-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+        تخطيط الأعمال
+      </a>
+      <a href="Mentor_Module 1.pdf" target="_blank" class="module-btn mod-1 en">
+        <svg class="pdf-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+        Business Planning
+      </a>
+      <!-- Module 2 -->
+      <a href="Mentor_Module 2.pdf" target="_blank" class="module-btn mod-2 ar">
+        <svg class="pdf-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+        استراتيجيات التسويق
+      </a>
+      <a href="Mentor_Module 2.pdf" target="_blank" class="module-btn mod-2 en">
+        <svg class="pdf-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+        Marketing Strategies
+      </a>
+      <!-- Module 3 -->
+      <a href="Mentor_Module 3.pdf" target="_blank" class="module-btn mod-3 ar">
+        <svg class="pdf-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+        الثقافة المالية
+      </a>
+      <a href="Mentor_Module 3.pdf" target="_blank" class="module-btn mod-3 en">
+        <svg class="pdf-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+        Financial Literacy
+      </a>
+      <!-- Module 4 -->
+      <a href="Mentor_Module 4.pdf" target="_blank" class="module-btn mod-4 ar">
+        <svg class="pdf-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+        الاستدامة والممارسات الصديقة للبيئة والمناخ
+      </a>
+      <a href="Mentor_Module 4.pdf" target="_blank" class="module-btn mod-4 en">
+        <svg class="pdf-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+        Sustainability &amp; Climate-Responsible Practices
+      </a>
+      <!-- Module 5 -->
+      <a href="Mentor_Module 5.pdf" target="_blank" class="module-btn mod-5 ar">
+        <svg class="pdf-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+        الممارسات الآمنة والحماية في العمل
+      </a>
+      <a href="Mentor_Module 5.pdf" target="_blank" class="module-btn mod-5 en">
+        <svg class="pdf-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+        Safe Business Practices &amp; Protection
+      </a>
+      <!-- Module 6 -->
+      <a href="Mentor_Module 6.pdf" target="_blank" class="module-btn mod-6 ar">
+        <svg class="pdf-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+        إرشاد الزميلات ومهارات الدعم والتوجيه
+      </a>
+      <a href="Mentor_Module 6.pdf" target="_blank" class="module-btn mod-6 en">
+        <svg class="pdf-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+        Peer Mentorship and Coaching Skills
+      </a>
+    </div>
+  </div>
+
+  <!-- ═══ Participant Card ═══ -->
+  <div class="card card-participant">
+    <div class="card-header">
+      <h2 class="ar"><small>Participant Guide</small>دليل المشاركة (المتدربة)</h2>
+      <h2 class="en"><small>Participant Guide</small>Participant Guide</h2>
+    </div>
+    <div class="module-list">
+      <!-- Module 1 -->
+      <a href="Participant_Module 1.pdf" target="_blank" class="module-btn mod-1 ar">
+        <svg class="pdf-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+        تخطيط الأعمال
+      </a>
+      <a href="Participant_Module 1.pdf" target="_blank" class="module-btn mod-1 en">
+        <svg class="pdf-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+        Business Planning
+      </a>
+      <!-- Module 2 -->
+      <a href="Participant_Module 2.pdf" target="_blank" class="module-btn mod-2 ar">
+        <svg class="pdf-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+        استراتيجيات التسويق
+      </a>
+      <a href="Participant_Module 2.pdf" target="_blank" class="module-btn mod-2 en">
+        <svg class="pdf-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+        Marketing Strategies
+      </a>
+      <!-- Module 3 -->
+      <a href="Participant_Module 3.pdf" target="_blank" class="module-btn mod-3 ar">
+        <svg class="pdf-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+        الثقافة المالية
+      </a>
+      <a href="Participant_Module 3.pdf" target="_blank" class="module-btn mod-3 en">
+        <svg class="pdf-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+        Financial Literacy
+      </a>
+      <!-- Module 4 -->
+      <a href="Participant_Module 4.pdf" target="_blank" class="module-btn mod-4 ar">
+        <svg class="pdf-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+        الاستدامة والممارسات الصديقة للبيئة والمناخ
+      </a>
+      <a href="Participant_Module 4.pdf" target="_blank" class="module-btn mod-4 en">
+        <svg class="pdf-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+        Sustainability &amp; Climate-Responsible Practices
+      </a>
+      <!-- Module 5 -->
+      <a href="Participant_Module 5.pdf" target="_blank" class="module-btn mod-5 ar">
+        <svg class="pdf-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+        الممارسات الآمنة والحماية في العمل
+      </a>
+      <a href="Participant_Module 5.pdf" target="_blank" class="module-btn mod-5 en">
+        <svg class="pdf-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+        Safe Business Practices &amp; Protection
+      </a>
+      <!-- Module 6 -->
+      <a href="Participant_Module 6.pdf" target="_blank" class="module-btn mod-6 ar">
+        <svg class="pdf-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+        إرشاد الزميلات ومهارات الدعم والتوجيه
+      </a>
+      <a href="Participant_Module 6.pdf" target="_blank" class="module-btn mod-6 en">
+        <svg class="pdf-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+        Peer Mentorship and Coaching Skills
+      </a>
+    </div>
+  </div>
+
+</main>
+
+<footer>
+  <span class="ar">© CARE – The Lotus Flower &nbsp;|&nbsp; الأدلة التدريبية</span>
+  <span class="en">© CARE – The Lotus Flower &nbsp;|&nbsp; Training Manuals</span>
+</footer>
+
+<script>
+  /* ── Language Toggle ── */
+  var _currentLang = 'ar';
+
+  function toggleLang() {
+    _currentLang = (_currentLang === 'ar') ? 'en' : 'ar';
+    setLang(_currentLang);
+  }
+
+  function setLang(lang) {
+    _currentLang = lang;
+    var html = document.documentElement;
+    html.lang = lang;
+    html.dir  = (lang === 'ar') ? 'rtl' : 'ltr';
+
+    var otherLang = (lang === 'ar') ? 'en' : 'ar';
+
+    // Hide inactive language
+    document.querySelectorAll('.' + otherLang).forEach(function(el) {
+      // Skip flip-label animation spans
+      if (el.classList.contains('flip-label')) return;
+      el.style.display = 'none';
+    });
+
+    // Show active language with correct display type
+    document.querySelectorAll('.' + lang).forEach(function(el) {
+      if (el.classList.contains('flip-label')) return;
+      var tag = el.tagName.toLowerCase();
+      if (el.classList.contains('module-btn')) {
+        el.style.display = 'flex';
+      } else if (tag === 'span') {
+        el.style.display = 'inline';
+      } else {
+        el.style.display = 'block';
+      }
+    });
+
+    var btn = document.getElementById('lang-flip-btn');
+    if (btn) btn.classList.toggle('en-active', lang === 'en');
+  }
+
+  /* ── PWA Install — platform-aware ── */
+  var _deferredPrompt = null;
+  var _isIos = /iphone|ipad|ipod/i.test(navigator.userAgent);
+  var _isInStandalone = (window.matchMedia('(display-mode: standalone)').matches)
+                     || (window.navigator.standalone === true);
+
+  // Android / Desktop — beforeinstallprompt
+  window.addEventListener('beforeinstallprompt', function(e) {
+    e.preventDefault();
+    _deferredPrompt = e;
+    if (!_isInStandalone) showInstallBanner();
+  });
+
+  function showInstallBanner() {
+    var banner = document.getElementById('installBanner');
+    if (banner) banner.classList.add('visible');
+  }
+
+  function installApp() {
+    if (!_deferredPrompt) return;
+    _deferredPrompt.prompt();
+    _deferredPrompt.userChoice.then(function(result) {
+      _deferredPrompt = null;
+      dismissInstall();
+    });
+  }
+
+  function dismissInstall() {
+    var banner = document.getElementById('installBanner');
+    if (banner) banner.classList.remove('visible');
+    try { sessionStorage.setItem('install-dismissed', '1'); } catch(e) {}
+  }
+
+  // iOS Safari — show manual instructions
+  function showIosBanner() {
+    var banner = document.getElementById('iosBanner');
+    if (banner) banner.classList.add('visible');
+  }
+
+  function dismissIosBanner() {
+    var banner = document.getElementById('iosBanner');
+    if (banner) banner.classList.remove('visible');
+    try { sessionStorage.setItem('ios-dismissed', '1'); } catch(e) {}
+  }
+
+  // Show iOS banner after short delay if on iOS Safari and not yet installed
+  if (_isIos && !_isInStandalone) {
+    var dismissed = false;
+    try { dismissed = sessionStorage.getItem('ios-dismissed') === '1'; } catch(e) {}
+    if (!dismissed) {
+      setTimeout(showIosBanner, 1500);
+    }
+  }
+
+  window.addEventListener('appinstalled', function() {
+    dismissInstall();
+    dismissIosBanner();
+    _deferredPrompt = null;
+  });
+
+  /* ── Service Worker ── */
+  if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.register('service-worker.js', { scope: './' })
+      .then(function(reg) {
+        // Force check for updates on every page load
+        reg.update();
+        reg.addEventListener('updatefound', function() {
+          var newSW = reg.installing;
+          if (newSW) newSW.addEventListener('statechange', function() {
+            if (newSW.state === 'activated') {
+              // Reload to use new version
+              window.location.reload();
+            }
+          });
+        });
+      })
+      .catch(function(err) { console.warn('SW registration failed:', err); });
+  }
+
+  /* ── Init ── */
+  setLang('ar');
+</script>
+
+</body>
+</html>
