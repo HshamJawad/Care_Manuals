@@ -217,6 +217,56 @@
       margin: 0 3px;
     }
 
+    /* Update available banner */
+    .update-banner {
+      display: none;
+      max-width: 1300px; margin: 0 auto;
+      padding: 0;
+      background: linear-gradient(135deg, #fef3cd, #fff8e1);
+      border-bottom: 2px solid #f0c040;
+      animation: updatePulse 2s ease-in-out infinite;
+    }
+    @keyframes updatePulse {
+      0%, 100% { border-bottom-color: #f0c040; }
+      50%      { border-bottom-color: #e8a317; }
+    }
+    .update-banner.visible { display: block; }
+    .update-inner {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      padding: 14px 20px;
+      flex-wrap: wrap;
+    }
+    .update-icon {
+      width: 24px; height: 24px;
+      color: #d4880f;
+      flex-shrink: 0;
+      animation: spin 2s linear infinite;
+    }
+    @keyframes spin {
+      100% { transform: rotate(360deg); }
+    }
+    .update-text p {
+      margin: 0;
+      font-size: 15px;
+      font-weight: 700;
+      color: #7a5a00;
+    }
+    .update-btn {
+      display: inline-flex; align-items: center; gap: 6px;
+      padding: 9px 22px;
+      background: linear-gradient(135deg, #e8a317, #d4880f);
+      color: white; border: none; border-radius: 50px;
+      font-family: inherit; font-size: 14px; font-weight: 700;
+      cursor: pointer;
+      box-shadow: 0 2px 8px rgba(212,136,15,.35);
+      transition: filter .2s;
+    }
+    .update-btn:hover  { filter: brightness(.92); }
+    .update-btn:active { filter: brightness(.85); }
+
     /* ── DIVIDER ── */
     .header-line {
       max-width: 1300px; margin: 0 auto 28px;
@@ -459,6 +509,23 @@
   </div>
 </div>
 
+<!-- Update Available Banner -->
+<div class="update-banner" id="updateBanner">
+  <div class="update-inner">
+    <svg class="update-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+      <path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83"/>
+    </svg>
+    <div class="update-text">
+      <p class="ar">يتوفر تحديث جديد للتطبيق</p>
+      <p class="en">A new update is available</p>
+    </div>
+    <button class="update-btn" onclick="applyUpdate()">
+      <span class="ar">تحديث الآن</span>
+      <span class="en">Update Now</span>
+    </button>
+  </div>
+</div>
+
 <div class="header-line"><hr></div>
 
 <main class="container">
@@ -596,6 +663,7 @@
 <footer>
   <span class="ar">© CARE – The Lotus Flower &nbsp;|&nbsp; الأدلة التدريبية</span>
   <span class="en">© CARE – The Lotus Flower &nbsp;|&nbsp; Training Manuals</span>
+  <br><span style="font-size:11px;color:#bbb;" id="versionLabel">v1.0.0</span>
 </footer>
 
 <script>
@@ -699,23 +767,67 @@
     _deferredPrompt = null;
   });
 
-  /* ── Service Worker ── */
+  /* ── Service Worker + Auto-Update System ── */
+  var _waitingSW = null;
+
+  function showUpdateBanner() {
+    var banner = document.getElementById('updateBanner');
+    if (banner) {
+      banner.classList.add('visible');
+      // Apply current language visibility
+      setLang(_currentLang);
+    }
+  }
+
+  function applyUpdate() {
+    if (_waitingSW) {
+      // Tell waiting SW to activate
+      _waitingSW.postMessage({ type: 'SKIP_WAITING' });
+    } else {
+      // Fallback: hard reload
+      window.location.reload(true);
+    }
+  }
+
   if ('serviceWorker' in navigator) {
     navigator.serviceWorker.register('service-worker.js', { scope: './' })
       .then(function(reg) {
-        // Force check for updates on every page load
+
+        // 1) Check for updates immediately on every page load
         reg.update();
+
+        // 2) Also check every 60 seconds while page is open
+        setInterval(function() { reg.update(); }, 60000);
+
+        // 3) Listen for new SW found
         reg.addEventListener('updatefound', function() {
           var newSW = reg.installing;
-          if (newSW) newSW.addEventListener('statechange', function() {
-            if (newSW.state === 'activated') {
-              // Reload to use new version
-              window.location.reload();
+          if (!newSW) return;
+
+          newSW.addEventListener('statechange', function() {
+            // New SW installed and waiting — show update banner
+            if (newSW.state === 'installed' && navigator.serviceWorker.controller) {
+              _waitingSW = newSW;
+              showUpdateBanner();
             }
           });
         });
+
+        // 4) If a SW is already waiting (e.g. user ignored banner before)
+        if (reg.waiting) {
+          _waitingSW = reg.waiting;
+          showUpdateBanner();
+        }
       })
       .catch(function(err) { console.warn('SW registration failed:', err); });
+
+    // 5) When new SW takes over → reload page automatically
+    var _refreshing = false;
+    navigator.serviceWorker.addEventListener('controllerchange', function() {
+      if (_refreshing) return;
+      _refreshing = true;
+      window.location.reload();
+    });
   }
 
   /* ── Init ── */
