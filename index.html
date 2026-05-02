@@ -796,19 +796,14 @@
     })
       .then(function(reg) {
 
-        // 1) Check for updates immediately on every page load
-        reg.update();
-
-        // 2) Also check every 60 seconds while page is open
-        setInterval(function() { reg.update(); }, 60000);
-
-        // 3) Listen for new SW found
+        // 1) Listen for new SW found
         reg.addEventListener('updatefound', function() {
           var newSW = reg.installing;
           if (!newSW) return;
 
           newSW.addEventListener('statechange', function() {
             // New SW installed and waiting — show update banner
+            // (only if there's already an active SW = this is an update, not first install)
             if (newSW.state === 'installed' && navigator.serviceWorker.controller) {
               _waitingSW = newSW;
               showUpdateBanner();
@@ -816,11 +811,25 @@
           });
         });
 
-        // 4) If a SW is already waiting (e.g. user ignored banner before)
+        // 2) If a SW is already waiting (user opened app again after ignoring banner)
         if (reg.waiting) {
           _waitingSW = reg.waiting;
           showUpdateBanner();
         }
+
+        // 3) Check for updates immediately
+        reg.update();
+
+        // 4) Also check every 60 seconds while page is open
+        setInterval(function() { reg.update(); }, 60000);
+
+        // 5) Re-check waiting state after update() completes (mobile safety net)
+        setTimeout(function() {
+          if (reg.waiting && !_waitingSW) {
+            _waitingSW = reg.waiting;
+            showUpdateBanner();
+          }
+        }, 3000);
       })
       .catch(function(err) { console.warn('SW registration failed:', err); });
 

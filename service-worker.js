@@ -1,18 +1,20 @@
 // ╔══════════════════════════════════════════════════╗
-// ║  CARE Manuals PWA — Service Worker v6           ║
-// ║  Network-first with cache-busting               ║
-// ║  Bypasses GitHub Pages CDN cache on mobile      ║
+// ║  CARE Manuals PWA — Service Worker v7           ║
+// ║  Network-first + controlled update flow         ║
 // ╚══════════════════════════════════════════════════╝
 
 const APP_VERSION = "1.0.0";
 const CACHE_NAME  = "care-manuals-v" + APP_VERSION;
 
-// ── Install: skip waiting immediately ──
+// ── Install: do NOT skipWaiting here ──
+// New SW waits until user clicks "Update Now"
 self.addEventListener("install", function(event) {
-  self.skipWaiting();
+  // Intentionally not calling self.skipWaiting()
+  // This keeps the new SW in "waiting" state
+  // so the page can detect it and show the update banner
 });
 
-// ── Activate: delete ALL old caches, claim all tabs ──
+// ── Activate: delete old caches, claim tabs ──
 self.addEventListener("activate", function(event) {
   event.waitUntil(
     caches.keys().then(function(keys) {
@@ -26,17 +28,13 @@ self.addEventListener("activate", function(event) {
   );
 });
 
-// ── Fetch: Network-first with forced revalidation ──
+// ── Fetch: Network-first, bypass HTTP cache ──
 self.addEventListener("fetch", function(event) {
   if (event.request.method !== "GET") return;
   if (!event.request.url.startsWith("http")) return;
 
   event.respondWith(
-    fetch(event.request, {
-      // Force browser to bypass its own HTTP cache
-      // This is the key fix for GitHub Pages CDN caching
-      cache: "no-cache"
-    })
+    fetch(event.request, { cache: "no-cache" })
     .then(function(response) {
       if (response.ok) {
         var clone = response.clone();
@@ -47,13 +45,12 @@ self.addEventListener("fetch", function(event) {
       return response;
     })
     .catch(function() {
-      // Offline fallback — serve from SW cache
       return caches.match(event.request);
     })
   );
 });
 
-// ── Listen for skip-waiting message from page ──
+// ── Only skipWaiting when user clicks "Update Now" ──
 self.addEventListener("message", function(event) {
   if (event.data && event.data.type === "SKIP_WAITING") {
     self.skipWaiting();
