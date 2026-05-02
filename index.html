@@ -790,7 +790,10 @@
   }
 
   if ('serviceWorker' in navigator) {
-    navigator.serviceWorker.register('service-worker.js', { scope: './' })
+    navigator.serviceWorker.register('service-worker.js', {
+      scope: './',
+      updateViaCache: 'none'  // Never use HTTP cache for SW file itself
+    })
       .then(function(reg) {
 
         // 1) Check for updates immediately on every page load
