@@ -9,31 +9,46 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="default">
   <meta name="apple-mobile-web-app-title" content="CARE-Manuals">
   <meta name="mobile-web-app-capable" content="yes">
-  <meta name="theme-color" content="#f0f2f5">
+  <meta name="theme-color" content="#EEE9E5">
   <link rel="icon" type="image/png" sizes="192x192" href="icon-192.png">
   <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
   <link rel="apple-touch-icon" sizes="192x192" href="icon-192.png">
   <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800;900&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <style>
     :root {
-      --care-orange: #E87722;
-      --lotus-red:   #C0143C;
-      --bg:          #f0f2f5;
+      /* CARE Brand Palette */
+      --care-orange: #E36F1E;      /* CARE Orange primary */
+      --care-indigo: #1C1D30;      /* CARE Indigo secondary */
+      --care-gray-1: #868788;      /* Neutral gray 1 */
+      --care-gray-2: #DADCOE;      /* Neutral gray 2 — using #DADBDE */
+      --care-gray-2: #DADBDE;
+      --care-gray-3: #EEE9E5;      /* Neutral light */
+      --lotus-red:   #1C1D30;      /* Use indigo instead of red */
+
+      --bg:          #EEE9E5;      /* CARE light neutral bg */
       --surface:     #ffffff;
-      --surface-2:   #f7f8fa;
-      --text-primary:#1a1a2e;
-      --text-muted:  #6b7280;
-      --text-light:  #9ca3af;
-      --border:      #e2e5ea;
-      --border-soft: #ebebeb;
+      --surface-2:   #f7f5f3;
+      --text-primary:#1C1D30;      /* CARE Indigo for text */
+      --text-muted:  #868788;      /* CARE gray */
+      --text-light:  #a8aaab;
+      --border:      #DADBDE;      /* CARE gray-2 */
+      --border-soft: #e8e5e2;
 
-      /* Participant button colors */
-      --p1: #009FDA; --p2: #F7941D; --p3: #39B54A;
-      --p4: #EC008C; --p5: #7B2D8B; --p6: #00A99D;
+      /* Participant button colors — CARE palette harmonics */
+      --p1: #E36F1E;               /* CARE Orange */
+      --p2: #c45c0a;               /* Orange deep */
+      --p3: #1C1D30;               /* CARE Indigo */
+      --p4: #2e3055;               /* Indigo mid */
+      --p5: #868788;               /* CARE Gray */
+      --p6: #5a5b5c;               /* Gray deep */
 
-      /* Mentor button colors — deeper tones */
-      --m1: #1A6B9C; --m2: #C97014; --m3: #2A8C3E;
-      --m4: #B8156E; --m5: #5C2480; --m6: #0D7D6E;
+      /* Mentor button colors — richer/deeper CARE tones */
+      --m1: #1C1D30;               /* CARE Indigo */
+      --m2: #E36F1E;               /* CARE Orange */
+      --m3: #2e3055;               /* Indigo mid */
+      --m4: #c45c0a;               /* Orange deep */
+      --m5: #3d3e60;               /* Indigo light */
+      --m6: #b85d10;               /* Orange mid */
     }
 
     * { margin:0; padding:0; box-sizing:border-box; }
@@ -101,7 +116,7 @@
     }
     .lang-flip:hover {
       border-color: var(--care-orange);
-      background: #fff8f4;
+      background: #fdf2ea;
     }
     .lang-flip:active { opacity: .88; }
     .lang-flip-inner {
@@ -131,11 +146,11 @@
       transition: transform .4s cubic-bezier(.4,0,.2,1), opacity .4s ease;
     }
     .flip-ar {
-      background: linear-gradient(135deg, var(--care-orange), var(--lotus-red));
+      background: linear-gradient(135deg, var(--care-orange), #c45c0a);
       transform: translateY(0); opacity: 1;
     }
     .flip-en {
-      background: linear-gradient(135deg, #4f8ef7, #7c3aed);
+      background: linear-gradient(135deg, var(--care-indigo), #2e3055);
       transform: translateY(100%); opacity: 0;
     }
     .lang-flip.en-active .flip-ar { transform: translateY(-100%); opacity: 0; }
@@ -165,7 +180,7 @@
       display: none;
       max-width: 1300px; margin: 0 auto;
       padding: 12px 40px;
-      background: linear-gradient(135deg, #f0f7ff, #f5f0ff);
+      background: linear-gradient(135deg, #f5f0eb, #ede8e3);
       border-bottom: 1px solid var(--border);
     }
     .install-banner.visible { display: block; }
@@ -184,11 +199,11 @@
     .install-btn {
       display: inline-flex; align-items: center; gap: 6px;
       padding: 8px 20px;
-      background: linear-gradient(135deg, #4f8ef7, #6c5ce7);
+      background: linear-gradient(135deg, var(--care-orange), #c45c0a);
       color: white; border: none; border-radius: 50px;
       font-family: inherit; font-size: 13px; font-weight: 700;
       cursor: pointer;
-      box-shadow: 0 2px 8px rgba(79,142,247,.3);
+      box-shadow: 0 2px 8px rgba(227,111,30,.35);
       transition: filter .2s;
     }
     .install-btn:hover { filter: brightness(.92); }
@@ -305,7 +320,7 @@
       border-radius: 20px 20px 0 0;
     }
     .card-mentor::after    { background: linear-gradient(90deg, var(--care-orange), #c45c0a); }
-    .card-participant::after { background: linear-gradient(90deg, var(--lotus-red), #8b0e2b); }
+    .card-participant::after { background: linear-gradient(90deg, var(--care-indigo), #2e3055); }
     .card > * { position: relative; z-index: 1; }
 
     /* ── CARD TITLE ── */
