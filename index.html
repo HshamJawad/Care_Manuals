@@ -42,13 +42,13 @@
       --p5: #868788;               /* CARE Gray */
       --p6: #5a5b5c;               /* Gray deep */
 
-      /* Mentor button colors — richer/deeper CARE tones */
-      --m1: #1C1D30;               /* CARE Indigo */
-      --m2: #E36F1E;               /* CARE Orange */
-      --m3: #2e3055;               /* Indigo mid */
-      --m4: #c45c0a;               /* Orange deep */
-      --m5: #3d3e60;               /* Indigo light */
-      --m6: #b85d10;               /* Orange mid */
+      /* Mentor button colors — same order as participant */
+      --m1: #E36F1E;               /* CARE Orange  (= p1) */
+      --m2: #c45c0a;               /* Orange deep  (= p2) */
+      --m3: #1C1D30;               /* CARE Indigo  (= p3) */
+      --m4: #2e3055;               /* Indigo mid   (= p4) */
+      --m5: #868788;               /* CARE Gray    (= p5) */
+      --m6: #5a5b5c;               /* Gray deep    (= p6) */
     }
 
     * { margin:0; padding:0; box-sizing:border-box; }
@@ -73,25 +73,35 @@
       border-bottom: 1px solid var(--border);
     }
 
+    /* logos row — always LTR regardless of page direction */
     .header-top {
       display: flex;
       align-items: center;
-      justify-content: space-between;
-      gap: 20px;
-      margin-bottom: 16px;
+      justify-content: center;
+      gap: 24px;
+      margin-bottom: 14px;
+      direction: ltr;
+      flex-wrap: wrap;
     }
 
     .logo-wrap {
       flex: 0 0 auto;
-      width: 100px; height: 100px;
+      width: 90px; height: 90px;
       display: flex; align-items: center; justify-content: center;
     }
     .logo-wrap img {
-      max-width: 100px; max-height: 100px;
+      max-width: 90px; max-height: 90px;
       width: auto; height: auto;
       object-fit: contain;
       filter: drop-shadow(0 2px 6px rgba(0,0,0,.10));
       border-radius: 10px; display: block;
+    }
+
+    /* lang button row — centred below logos */
+    .header-lang-row {
+      display: flex;
+      justify-content: center;
+      margin-bottom: 12px;
     }
 
     .header-center {
@@ -415,13 +425,15 @@
       .header-line    { padding-left: 20px; padding-right: 20px; }
       .container      { padding: 0 20px; gap: 18px; }
       .install-banner { padding-left: 20px; padding-right: 20px; }
+      .logo-wrap { width: 72px; height: 72px; }
+      .logo-wrap img { max-width: 72px; max-height: 72px; }
     }
 
     @media (max-width: 680px) {
       .header-wrapper { padding: 20px 16px 14px; }
-      .header-top { flex-wrap: wrap; justify-content: center; gap: 12px; }
-      .logo-wrap  { width: 72px; height: 72px; }
-      .logo-wrap img { max-width: 72px; max-height: 72px; }
+      .header-top { gap: 14px; }
+      .logo-wrap  { width: 58px; height: 58px; }
+      .logo-wrap img { max-width: 58px; max-height: 58px; }
       .header-title h1 { font-size: 26px; }
       .header-title p  { font-size: 11px; }
 
@@ -444,8 +456,9 @@
     }
 
     @media (max-width: 400px) {
-      .logo-wrap { width: 56px; height: 56px; }
-      .logo-wrap img { max-width: 56px; max-height: 56px; }
+      .logo-wrap { width: 48px; height: 48px; }
+      .logo-wrap img { max-width: 48px; max-height: 48px; }
+      .header-top { gap: 10px; }
       .header-title h1 { font-size: 22px; }
       .card-header h2  { font-size: 21px; }
       .module-btn { font-size: 14px; padding: 12px 12px; }
@@ -455,33 +468,41 @@
 <body>
 
 <div class="header-wrapper">
+  <!-- ── Logos row — fixed LTR: GIZ · Space · CARE · Lotus ── -->
   <div class="header-top">
+    <div class="logo-wrap">
+      <img src="GIZ_logo.png" alt="GIZ">
+    </div>
+    <div class="logo-wrap">
+      <img src="Space_logo.png" alt="Space">
+    </div>
     <div class="logo-wrap">
       <img src="care_logo_orange.png" alt="CARE">
     </div>
-
-    <div class="header-center">
-      <button class="lang-flip" id="lang-flip-btn" onclick="toggleLang()" title="Switch language / تغيير اللغة">
-        <span class="lang-flip-inner">
-          <svg class="flip-globe" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <circle cx="12" cy="12" r="10"/>
-            <path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>
-          </svg>
-          <span class="flip-track">
-            <span class="flip-label flip-ar">AR</span>
-            <span class="flip-label flip-en">EN</span>
-          </span>
-          <svg class="flip-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
-            <path d="M5 12h14M15 7l5 5-5 5"/>
-          </svg>
-        </span>
-      </button>
-    </div>
-
     <div class="logo-wrap">
       <img src="the_lotus_flower_logo.jpg" alt="The Lotus Flower">
     </div>
   </div>
+
+  <!-- ── Language toggle — centred below logos ── -->
+  <div class="header-lang-row">
+    <button class="lang-flip" id="lang-flip-btn" onclick="toggleLang()" title="Switch language / تغيير اللغة">
+      <span class="lang-flip-inner">
+        <svg class="flip-globe" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <circle cx="12" cy="12" r="10"/>
+          <path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>
+        </svg>
+        <span class="flip-track">
+          <span class="flip-label flip-ar">AR</span>
+          <span class="flip-label flip-en">EN</span>
+        </span>
+        <svg class="flip-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+          <path d="M5 12h14M15 7l5 5-5 5"/>
+        </svg>
+      </span>
+    </button>
+  </div>
+
   <div class="header-title">
     <h1 class="ar">الأدلة التدريبية</h1>
     <h1 class="en">Training Guidance Manuals</h1>
@@ -612,7 +633,7 @@
   <!-- ═══ Participant Card ═══ -->
   <div class="card card-participant">
     <div class="card-header">
-      <h2 class="ar"><small>Participant Guide</small>دليل المشاركة (المتدربة)</h2>
+      <h2 class="ar"><small>Participant Guide</small>دليل المشاركة</h2>
       <h2 class="en"><small>Participant Guide</small>Participant Guide</h2>
     </div>
     <div class="module-list">
