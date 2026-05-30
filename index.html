@@ -97,6 +97,18 @@
       border-radius: 10px; display: block;
     }
 
+    /* GIZ logo — fix height to match others; allow wider natural width */
+    .logo-wrap.logo-giz {
+      width: auto;
+      max-width: 160px;
+    }
+    .logo-wrap.logo-giz img {
+      height: 90px;
+      max-height: 90px;
+      width: auto;
+      max-width: 160px;
+    }
+
     /* lang button row — centred below logos */
     .header-lang-row {
       display: flex;
@@ -427,6 +439,8 @@
       .install-banner { padding-left: 20px; padding-right: 20px; }
       .logo-wrap { width: 72px; height: 72px; }
       .logo-wrap img { max-width: 72px; max-height: 72px; }
+      .logo-wrap.logo-giz { width: auto; max-width: 130px; }
+      .logo-wrap.logo-giz img { height: 72px; max-height: 72px; max-width: 130px; }
     }
 
     @media (max-width: 680px) {
@@ -434,6 +448,8 @@
       .header-top { gap: 14px; }
       .logo-wrap  { width: 58px; height: 58px; }
       .logo-wrap img { max-width: 58px; max-height: 58px; }
+      .logo-wrap.logo-giz { width: auto; max-width: 110px; }
+      .logo-wrap.logo-giz img { height: 58px; max-height: 58px; max-width: 110px; }
       .header-title h1 { font-size: 26px; }
       .header-title p  { font-size: 11px; }
 
@@ -458,6 +474,8 @@
     @media (max-width: 400px) {
       .logo-wrap { width: 48px; height: 48px; }
       .logo-wrap img { max-width: 48px; max-height: 48px; }
+      .logo-wrap.logo-giz { width: auto; max-width: 90px; }
+      .logo-wrap.logo-giz img { height: 48px; max-height: 48px; max-width: 90px; }
       .header-top { gap: 10px; }
       .header-title h1 { font-size: 22px; }
       .card-header h2  { font-size: 21px; }
@@ -470,7 +488,7 @@
 <div class="header-wrapper">
   <!-- ── Logos row — fixed LTR: GIZ · Space · CARE · Lotus ── -->
   <div class="header-top">
-    <div class="logo-wrap">
+    <div class="logo-wrap logo-giz">
       <img src="GIZ_logo.png" alt="GIZ">
     </div>
     <div class="logo-wrap">
