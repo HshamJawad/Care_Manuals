@@ -407,8 +407,67 @@
     .card-participant .mod-5 { background: var(--p5); }
     .card-participant .mod-6 { background: var(--p6); }
 
-    /* Mentor module colors — deeper professional tones */
-    .card-mentor .mod-1 { background: var(--m1); }
+    /* ── MODULE ROW — pdf open + word download ── */
+    .module-row {
+      display: flex;
+      align-items: stretch;
+      gap: 6px;
+      width: 100%;
+    }
+
+    /* PDF open button — fills the row, keeps existing look */
+    .module-row .module-btn {
+      flex: 1;
+      min-width: 0;
+    }
+
+    /* Word download button */
+    .word-btn {
+      flex: 0 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 5px;
+      padding: 0 14px;
+      border-radius: 12px;
+      border: 2px solid rgba(255,255,255,.35);
+      background: rgba(255,255,255,.15);
+      color: white;
+      font-family: inherit;
+      font-size: 12px;
+      font-weight: 800;
+      letter-spacing: .4px;
+      text-decoration: none;
+      cursor: pointer;
+      white-space: nowrap;
+      transition: background .18s, border-color .18s, box-shadow .18s;
+      box-shadow: 0 2px 6px rgba(0,0,0,.10);
+    }
+    .word-btn:hover {
+      background: rgba(255,255,255,.28);
+      border-color: rgba(255,255,255,.6);
+      box-shadow: 0 3px 10px rgba(0,0,0,.16);
+    }
+    .word-btn:active { opacity: .82; }
+    .word-btn svg {
+      width: 15px; height: 15px; flex-shrink: 0;
+    }
+    .word-btn .word-label {
+      display: flex; flex-direction: column;
+      align-items: center; line-height: 1.15;
+    }
+    .word-btn .word-label .wl-top  { font-size: 10px; opacity: .85; font-weight: 700; }
+    .word-btn .word-label .wl-ext  { font-size: 12px; font-weight: 900; }
+
+    @media (max-width: 680px) {
+      .word-btn { padding: 0 10px; font-size: 11px; }
+      .word-btn svg { width: 13px; height: 13px; }
+      .word-btn .word-label .wl-top { font-size: 9px; }
+      .word-btn .word-label .wl-ext { font-size: 11px; }
+    }
+    @media (max-width: 400px) {
+      .word-btn { padding: 0 8px; }
+    }
     .card-mentor .mod-2 { background: var(--m2); }
     .card-mentor .mod-3 { background: var(--m3); }
     .card-mentor .mod-4 { background: var(--m4); }
@@ -592,59 +651,119 @@
     </div>
     <div class="module-list">
       <!-- Module 1 -->
-      <a href="Mentor_Module 1.pdf" target="_blank" class="module-btn mod-1 ar">
-        <svg class="pdf-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
-        تخطيط الأعمال
-      </a>
-      <a href="Mentor_Module 1.pdf" target="_blank" class="module-btn mod-1 en">
-        <svg class="pdf-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
-        Business Planning
-      </a>
+      <div class="module-row">
+        <a href="Mentor_Module 1.pdf" target="_blank" class="module-btn mod-1 ar">
+          <svg class="pdf-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+          تخطيط الأعمال
+        </a>
+        <a href="Mentor_Module 1.pdf" target="_blank" class="module-btn mod-1 en">
+          <svg class="pdf-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+          Business Planning
+        </a>
+        <a href="Mentor_Module 1.docx" download class="word-btn mod-1 ar">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="12" y1="18" x2="12" y2="12"/><polyline points="9 15 12 18 15 15"/></svg>
+          <span class="word-label"><span class="wl-top">Word</span><span class="wl-ext">.docx</span></span>
+        </a>
+        <a href="Mentor_Module 1.docx" download class="word-btn mod-1 en">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="12" y1="18" x2="12" y2="12"/><polyline points="9 15 12 18 15 15"/></svg>
+          <span class="word-label"><span class="wl-top">Word</span><span class="wl-ext">.docx</span></span>
+        </a>
+      </div>
       <!-- Module 2 -->
-      <a href="Mentor_Module 2.pdf" target="_blank" class="module-btn mod-2 ar">
-        <svg class="pdf-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
-        استراتيجيات التسويق
-      </a>
-      <a href="Mentor_Module 2.pdf" target="_blank" class="module-btn mod-2 en">
-        <svg class="pdf-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
-        Marketing Strategies
-      </a>
+      <div class="module-row">
+        <a href="Mentor_Module 2.pdf" target="_blank" class="module-btn mod-2 ar">
+          <svg class="pdf-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+          استراتيجيات التسويق
+        </a>
+        <a href="Mentor_Module 2.pdf" target="_blank" class="module-btn mod-2 en">
+          <svg class="pdf-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+          Marketing Strategies
+        </a>
+        <a href="Mentor_Module 2.docx" download class="word-btn mod-2 ar">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="12" y1="18" x2="12" y2="12"/><polyline points="9 15 12 18 15 15"/></svg>
+          <span class="word-label"><span class="wl-top">Word</span><span class="wl-ext">.docx</span></span>
+        </a>
+        <a href="Mentor_Module 2.docx" download class="word-btn mod-2 en">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="12" y1="18" x2="12" y2="12"/><polyline points="9 15 12 18 15 15"/></svg>
+          <span class="word-label"><span class="wl-top">Word</span><span class="wl-ext">.docx</span></span>
+        </a>
+      </div>
       <!-- Module 3 -->
-      <a href="Mentor_Module 3.pdf" target="_blank" class="module-btn mod-3 ar">
-        <svg class="pdf-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
-        الثقافة المالية
-      </a>
-      <a href="Mentor_Module 3.pdf" target="_blank" class="module-btn mod-3 en">
-        <svg class="pdf-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
-        Financial Literacy
-      </a>
+      <div class="module-row">
+        <a href="Mentor_Module 3.pdf" target="_blank" class="module-btn mod-3 ar">
+          <svg class="pdf-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+          الثقافة المالية
+        </a>
+        <a href="Mentor_Module 3.pdf" target="_blank" class="module-btn mod-3 en">
+          <svg class="pdf-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+          Financial Literacy
+        </a>
+        <a href="Mentor_Module 3.docx" download class="word-btn mod-3 ar">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="12" y1="18" x2="12" y2="12"/><polyline points="9 15 12 18 15 15"/></svg>
+          <span class="word-label"><span class="wl-top">Word</span><span class="wl-ext">.docx</span></span>
+        </a>
+        <a href="Mentor_Module 3.docx" download class="word-btn mod-3 en">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="12" y1="18" x2="12" y2="12"/><polyline points="9 15 12 18 15 15"/></svg>
+          <span class="word-label"><span class="wl-top">Word</span><span class="wl-ext">.docx</span></span>
+        </a>
+      </div>
       <!-- Module 4 -->
-      <a href="Mentor_Module 4.pdf" target="_blank" class="module-btn mod-4 ar">
-        <svg class="pdf-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
-        الاستدامة والممارسات الصديقة للبيئة والمناخ
-      </a>
-      <a href="Mentor_Module 4.pdf" target="_blank" class="module-btn mod-4 en">
-        <svg class="pdf-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
-        Sustainability &amp; Climate-Responsible Practices
-      </a>
+      <div class="module-row">
+        <a href="Mentor_Module 4.pdf" target="_blank" class="module-btn mod-4 ar">
+          <svg class="pdf-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+          الاستدامة والممارسات الصديقة للبيئة والمناخ
+        </a>
+        <a href="Mentor_Module 4.pdf" target="_blank" class="module-btn mod-4 en">
+          <svg class="pdf-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+          Sustainability &amp; Climate-Responsible Practices
+        </a>
+        <a href="Mentor_Module 4.docx" download class="word-btn mod-4 ar">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="12" y1="18" x2="12" y2="12"/><polyline points="9 15 12 18 15 15"/></svg>
+          <span class="word-label"><span class="wl-top">Word</span><span class="wl-ext">.docx</span></span>
+        </a>
+        <a href="Mentor_Module 4.docx" download class="word-btn mod-4 en">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="12" y1="18" x2="12" y2="12"/><polyline points="9 15 12 18 15 15"/></svg>
+          <span class="word-label"><span class="wl-top">Word</span><span class="wl-ext">.docx</span></span>
+        </a>
+      </div>
       <!-- Module 5 -->
-      <a href="Mentor_Module 5.pdf" target="_blank" class="module-btn mod-5 ar">
-        <svg class="pdf-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
-        الممارسات الآمنة والحماية في العمل
-      </a>
-      <a href="Mentor_Module 5.pdf" target="_blank" class="module-btn mod-5 en">
-        <svg class="pdf-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
-        Safe Business Practices &amp; Protection
-      </a>
+      <div class="module-row">
+        <a href="Mentor_Module 5.pdf" target="_blank" class="module-btn mod-5 ar">
+          <svg class="pdf-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+          الممارسات الآمنة والحماية في العمل
+        </a>
+        <a href="Mentor_Module 5.pdf" target="_blank" class="module-btn mod-5 en">
+          <svg class="pdf-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+          Safe Business Practices &amp; Protection
+        </a>
+        <a href="Mentor_Module 5.docx" download class="word-btn mod-5 ar">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="12" y1="18" x2="12" y2="12"/><polyline points="9 15 12 18 15 15"/></svg>
+          <span class="word-label"><span class="wl-top">Word</span><span class="wl-ext">.docx</span></span>
+        </a>
+        <a href="Mentor_Module 5.docx" download class="word-btn mod-5 en">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="12" y1="18" x2="12" y2="12"/><polyline points="9 15 12 18 15 15"/></svg>
+          <span class="word-label"><span class="wl-top">Word</span><span class="wl-ext">.docx</span></span>
+        </a>
+      </div>
       <!-- Module 6 -->
-      <a href="Mentor_Module 6.pdf" target="_blank" class="module-btn mod-6 ar">
-        <svg class="pdf-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
-        إرشاد الزميلات ومهارات الدعم والتوجيه
-      </a>
-      <a href="Mentor_Module 6.pdf" target="_blank" class="module-btn mod-6 en">
-        <svg class="pdf-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
-        Peer Mentorship and Coaching Skills
-      </a>
+      <div class="module-row">
+        <a href="Mentor_Module 6.pdf" target="_blank" class="module-btn mod-6 ar">
+          <svg class="pdf-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+          إرشاد الزميلات ومهارات الدعم والتوجيه
+        </a>
+        <a href="Mentor_Module 6.pdf" target="_blank" class="module-btn mod-6 en">
+          <svg class="pdf-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+          Peer Mentorship and Coaching Skills
+        </a>
+        <a href="Mentor_Module 6.docx" download class="word-btn mod-6 ar">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="12" y1="18" x2="12" y2="12"/><polyline points="9 15 12 18 15 15"/></svg>
+          <span class="word-label"><span class="wl-top">Word</span><span class="wl-ext">.docx</span></span>
+        </a>
+        <a href="Mentor_Module 6.docx" download class="word-btn mod-6 en">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="12" y1="18" x2="12" y2="12"/><polyline points="9 15 12 18 15 15"/></svg>
+          <span class="word-label"><span class="wl-top">Word</span><span class="wl-ext">.docx</span></span>
+        </a>
+      </div>
     </div>
   </div>
 
@@ -656,59 +775,119 @@
     </div>
     <div class="module-list">
       <!-- Module 1 -->
-      <a href="Participant_Module 1.pdf" target="_blank" class="module-btn mod-1 ar">
-        <svg class="pdf-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
-        تخطيط الأعمال
-      </a>
-      <a href="Participant_Module 1.pdf" target="_blank" class="module-btn mod-1 en">
-        <svg class="pdf-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
-        Business Planning
-      </a>
+      <div class="module-row">
+        <a href="Participant_Module 1.pdf" target="_blank" class="module-btn mod-1 ar">
+          <svg class="pdf-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+          تخطيط الأعمال
+        </a>
+        <a href="Participant_Module 1.pdf" target="_blank" class="module-btn mod-1 en">
+          <svg class="pdf-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+          Business Planning
+        </a>
+        <a href="Participant_Module 1.docx" download class="word-btn mod-1 ar">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="12" y1="18" x2="12" y2="12"/><polyline points="9 15 12 18 15 15"/></svg>
+          <span class="word-label"><span class="wl-top">Word</span><span class="wl-ext">.docx</span></span>
+        </a>
+        <a href="Participant_Module 1.docx" download class="word-btn mod-1 en">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="12" y1="18" x2="12" y2="12"/><polyline points="9 15 12 18 15 15"/></svg>
+          <span class="word-label"><span class="wl-top">Word</span><span class="wl-ext">.docx</span></span>
+        </a>
+      </div>
       <!-- Module 2 -->
-      <a href="Participant_Module 2.pdf" target="_blank" class="module-btn mod-2 ar">
-        <svg class="pdf-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
-        استراتيجيات التسويق
-      </a>
-      <a href="Participant_Module 2.pdf" target="_blank" class="module-btn mod-2 en">
-        <svg class="pdf-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
-        Marketing Strategies
-      </a>
+      <div class="module-row">
+        <a href="Participant_Module 2.pdf" target="_blank" class="module-btn mod-2 ar">
+          <svg class="pdf-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+          استراتيجيات التسويق
+        </a>
+        <a href="Participant_Module 2.pdf" target="_blank" class="module-btn mod-2 en">
+          <svg class="pdf-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+          Marketing Strategies
+        </a>
+        <a href="Participant_Module 2.docx" download class="word-btn mod-2 ar">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="12" y1="18" x2="12" y2="12"/><polyline points="9 15 12 18 15 15"/></svg>
+          <span class="word-label"><span class="wl-top">Word</span><span class="wl-ext">.docx</span></span>
+        </a>
+        <a href="Participant_Module 2.docx" download class="word-btn mod-2 en">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="12" y1="18" x2="12" y2="12"/><polyline points="9 15 12 18 15 15"/></svg>
+          <span class="word-label"><span class="wl-top">Word</span><span class="wl-ext">.docx</span></span>
+        </a>
+      </div>
       <!-- Module 3 -->
-      <a href="Participant_Module 3.pdf" target="_blank" class="module-btn mod-3 ar">
-        <svg class="pdf-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
-        الثقافة المالية
-      </a>
-      <a href="Participant_Module 3.pdf" target="_blank" class="module-btn mod-3 en">
-        <svg class="pdf-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
-        Financial Literacy
-      </a>
+      <div class="module-row">
+        <a href="Participant_Module 3.pdf" target="_blank" class="module-btn mod-3 ar">
+          <svg class="pdf-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+          الثقافة المالية
+        </a>
+        <a href="Participant_Module 3.pdf" target="_blank" class="module-btn mod-3 en">
+          <svg class="pdf-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+          Financial Literacy
+        </a>
+        <a href="Participant_Module 3.docx" download class="word-btn mod-3 ar">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="12" y1="18" x2="12" y2="12"/><polyline points="9 15 12 18 15 15"/></svg>
+          <span class="word-label"><span class="wl-top">Word</span><span class="wl-ext">.docx</span></span>
+        </a>
+        <a href="Participant_Module 3.docx" download class="word-btn mod-3 en">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="12" y1="18" x2="12" y2="12"/><polyline points="9 15 12 18 15 15"/></svg>
+          <span class="word-label"><span class="wl-top">Word</span><span class="wl-ext">.docx</span></span>
+        </a>
+      </div>
       <!-- Module 4 -->
-      <a href="Participant_Module 4.pdf" target="_blank" class="module-btn mod-4 ar">
-        <svg class="pdf-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
-        الاستدامة والممارسات الصديقة للبيئة والمناخ
-      </a>
-      <a href="Participant_Module 4.pdf" target="_blank" class="module-btn mod-4 en">
-        <svg class="pdf-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
-        Sustainability &amp; Climate-Responsible Practices
-      </a>
+      <div class="module-row">
+        <a href="Participant_Module 4.pdf" target="_blank" class="module-btn mod-4 ar">
+          <svg class="pdf-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+          الاستدامة والممارسات الصديقة للبيئة والمناخ
+        </a>
+        <a href="Participant_Module 4.pdf" target="_blank" class="module-btn mod-4 en">
+          <svg class="pdf-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+          Sustainability &amp; Climate-Responsible Practices
+        </a>
+        <a href="Participant_Module 4.docx" download class="word-btn mod-4 ar">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="12" y1="18" x2="12" y2="12"/><polyline points="9 15 12 18 15 15"/></svg>
+          <span class="word-label"><span class="wl-top">Word</span><span class="wl-ext">.docx</span></span>
+        </a>
+        <a href="Participant_Module 4.docx" download class="word-btn mod-4 en">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="12" y1="18" x2="12" y2="12"/><polyline points="9 15 12 18 15 15"/></svg>
+          <span class="word-label"><span class="wl-top">Word</span><span class="wl-ext">.docx</span></span>
+        </a>
+      </div>
       <!-- Module 5 -->
-      <a href="Participant_Module 5.pdf" target="_blank" class="module-btn mod-5 ar">
-        <svg class="pdf-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
-        الممارسات الآمنة والحماية في العمل
-      </a>
-      <a href="Participant_Module 5.pdf" target="_blank" class="module-btn mod-5 en">
-        <svg class="pdf-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
-        Safe Business Practices &amp; Protection
-      </a>
+      <div class="module-row">
+        <a href="Participant_Module 5.pdf" target="_blank" class="module-btn mod-5 ar">
+          <svg class="pdf-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+          الممارسات الآمنة والحماية في العمل
+        </a>
+        <a href="Participant_Module 5.pdf" target="_blank" class="module-btn mod-5 en">
+          <svg class="pdf-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+          Safe Business Practices &amp; Protection
+        </a>
+        <a href="Participant_Module 5.docx" download class="word-btn mod-5 ar">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="12" y1="18" x2="12" y2="12"/><polyline points="9 15 12 18 15 15"/></svg>
+          <span class="word-label"><span class="wl-top">Word</span><span class="wl-ext">.docx</span></span>
+        </a>
+        <a href="Participant_Module 5.docx" download class="word-btn mod-5 en">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="12" y1="18" x2="12" y2="12"/><polyline points="9 15 12 18 15 15"/></svg>
+          <span class="word-label"><span class="wl-top">Word</span><span class="wl-ext">.docx</span></span>
+        </a>
+      </div>
       <!-- Module 6 -->
-      <a href="Participant_Module 6.pdf" target="_blank" class="module-btn mod-6 ar">
-        <svg class="pdf-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
-        إرشاد الزميلات ومهارات الدعم والتوجيه
-      </a>
-      <a href="Participant_Module 6.pdf" target="_blank" class="module-btn mod-6 en">
-        <svg class="pdf-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
-        Peer Mentorship and Coaching Skills
-      </a>
+      <div class="module-row">
+        <a href="Participant_Module 6.pdf" target="_blank" class="module-btn mod-6 ar">
+          <svg class="pdf-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+          إرشاد الزميلات ومهارات الدعم والتوجيه
+        </a>
+        <a href="Participant_Module 6.pdf" target="_blank" class="module-btn mod-6 en">
+          <svg class="pdf-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+          Peer Mentorship and Coaching Skills
+        </a>
+        <a href="Participant_Module 6.docx" download class="word-btn mod-6 ar">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="12" y1="18" x2="12" y2="12"/><polyline points="9 15 12 18 15 15"/></svg>
+          <span class="word-label"><span class="wl-top">Word</span><span class="wl-ext">.docx</span></span>
+        </a>
+        <a href="Participant_Module 6.docx" download class="word-btn mod-6 en">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="12" y1="18" x2="12" y2="12"/><polyline points="9 15 12 18 15 15"/></svg>
+          <span class="word-label"><span class="wl-top">Word</span><span class="wl-ext">.docx</span></span>
+        </a>
+      </div>
     </div>
   </div>
 
@@ -739,7 +918,6 @@
 
     // Hide inactive language
     document.querySelectorAll('.' + otherLang).forEach(function(el) {
-      // Skip flip-label animation spans
       if (el.classList.contains('flip-label')) return;
       el.style.display = 'none';
     });
@@ -749,6 +927,8 @@
       if (el.classList.contains('flip-label')) return;
       var tag = el.tagName.toLowerCase();
       if (el.classList.contains('module-btn')) {
+        el.style.display = 'flex';
+      } else if (el.classList.contains('word-btn')) {
         el.style.display = 'flex';
       } else if (tag === 'span') {
         el.style.display = 'inline';
