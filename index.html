@@ -473,6 +473,122 @@
       .word-btn { padding: 0 8px; }
     }
 
+    /* ── DOWNLOAD MODAL ── */
+    .dl-modal-overlay {
+      display: none;
+      position: fixed; inset: 0; z-index: 9999;
+      background: rgba(28,29,48,.55);
+      backdrop-filter: blur(6px);
+      -webkit-backdrop-filter: blur(6px);
+      align-items: center; justify-content: center;
+    }
+    .dl-modal-overlay.visible {
+      display: flex;
+      animation: dlFadeIn .22s ease;
+    }
+    @keyframes dlFadeIn {
+      from { opacity: 0; }
+      to   { opacity: 1; }
+    }
+    .dl-modal {
+      background: var(--surface);
+      border-radius: 22px;
+      padding: 36px 40px 32px;
+      max-width: 340px; width: 90%;
+      text-align: center;
+      box-shadow: 0 20px 60px rgba(0,0,0,.22), 0 4px 16px rgba(0,0,0,.12);
+      animation: dlSlideUp .28s cubic-bezier(.34,1.56,.64,1);
+      border: 1px solid var(--border-soft);
+    }
+    @keyframes dlSlideUp {
+      from { opacity: 0; transform: translateY(22px) scale(.95); }
+      to   { opacity: 1; transform: translateY(0)   scale(1);    }
+    }
+
+    /* Animated icon ring */
+    .dl-icon-wrap {
+      position: relative;
+      width: 72px; height: 72px;
+      margin: 0 auto 20px;
+    }
+    .dl-ring {
+      position: absolute; inset: 0;
+      border-radius: 50%;
+      border: 3px solid var(--border);
+      border-top-color: var(--care-orange);
+      animation: dlSpin 1s linear infinite;
+    }
+    @keyframes dlSpin {
+      to { transform: rotate(360deg); }
+    }
+    .dl-icon-inner {
+      position: absolute; inset: 8px;
+      background: linear-gradient(135deg, var(--care-orange), #c45c0a);
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .dl-icon-inner svg {
+      width: 24px; height: 24px;
+      color: white;
+      animation: dlBounce 1.2s ease-in-out infinite;
+    }
+    @keyframes dlBounce {
+      0%, 100% { transform: translateY(0); }
+      50%       { transform: translateY(3px); }
+    }
+
+    /* Dots animation */
+    .dl-dots {
+      display: inline-flex; gap: 5px;
+      margin-top: 4px;
+    }
+    .dl-dots span {
+      width: 6px; height: 6px;
+      background: var(--care-orange);
+      border-radius: 50%;
+      animation: dlDot 1.2s ease-in-out infinite;
+      opacity: .25;
+    }
+    .dl-dots span:nth-child(1) { animation-delay: 0s; }
+    .dl-dots span:nth-child(2) { animation-delay: .2s; }
+    .dl-dots span:nth-child(3) { animation-delay: .4s; }
+    @keyframes dlDot {
+      0%, 80%, 100% { opacity: .25; transform: scale(.85); }
+      40%            { opacity: 1;   transform: scale(1.15); }
+    }
+
+    .dl-title {
+      font-size: 18px; font-weight: 800;
+      color: var(--text-primary);
+      margin-bottom: 6px;
+      line-height: 1.3;
+    }
+    .dl-subtitle {
+      font-size: 13px; font-weight: 600;
+      color: var(--text-muted);
+      line-height: 1.5;
+    }
+    .dl-bar-wrap {
+      margin-top: 20px;
+      height: 4px;
+      background: var(--border);
+      border-radius: 99px;
+      overflow: hidden;
+    }
+    .dl-bar {
+      height: 100%; width: 0%;
+      background: linear-gradient(90deg, var(--care-orange), #c45c0a);
+      border-radius: 99px;
+      animation: dlBar 8s ease-in-out forwards;
+    }
+    @keyframes dlBar {
+      0%   { width: 0%;  }
+      30%  { width: 45%; }
+      70%  { width: 75%; }
+      95%  { width: 92%; }
+      100% { width: 92%; }
+    }
+
     /* ── PDF button colors — placed AFTER .word-btn so they win the cascade ── */
     .card-participant .module-btn.mod-1 { background: var(--p1); }
     .card-participant .module-btn.mod-2 { background: var(--p2); }
@@ -928,6 +1044,38 @@
   <br><span style="font-size:11px;color:#bbb;" id="versionLabel">v1.0.0</span>
 </footer>
 
+<!-- ── DOWNLOAD LOADING MODAL ── -->
+<div id="dlModal" class="dl-modal-overlay" role="dialog" aria-modal="true" aria-live="polite">
+  <div class="dl-modal">
+    <div class="dl-icon-wrap">
+      <div class="dl-ring"></div>
+      <div class="dl-icon-inner">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+          <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+          <polyline points="7 10 12 15 17 10"/>
+          <line x1="12" y1="15" x2="12" y2="3"/>
+        </svg>
+      </div>
+    </div>
+    <div class="dl-title ar">جاري تحضير الملف</div>
+    <div class="dl-title en" style="display:none">Preparing your file</div>
+    <div class="dl-subtitle ar">
+      يتم الآن تحميل ملف Word من Google Drive<br>
+      قد يستغرق ذلك لحظات
+    </div>
+    <div class="dl-subtitle en" style="display:none">
+      Downloading Word file from Google Drive<br>
+      This may take a moment
+    </div>
+    <div class="dl-dots">
+      <span></span><span></span><span></span>
+    </div>
+    <div class="dl-bar-wrap">
+      <div class="dl-bar" id="dlBar"></div>
+    </div>
+  </div>
+</div>
+
 <script>
   /* ── Language Toggle ── */
   var _currentLang = 'ar';
@@ -1106,6 +1254,58 @@
   }
 
   /* Cache-bust removed — links now point to Google Drive */
+
+  /* ── Download Loading Modal ── */
+  (function() {
+    var overlay = document.getElementById('dlModal');
+    var _dlTimer = null;
+
+    function showDlModal() {
+      // Reset bar animation by replacing the element
+      var oldBar = document.getElementById('dlBar');
+      var newBar = document.createElement('div');
+      newBar.className = 'dl-bar';
+      newBar.id = 'dlBar';
+      oldBar.parentNode.replaceChild(newBar, oldBar);
+
+      // Sync modal text with current lang
+      var isAr = (_currentLang === 'ar');
+      overlay.querySelectorAll('.dl-title.ar, .dl-subtitle.ar').forEach(function(el) {
+        el.style.display = isAr ? 'block' : 'none';
+      });
+      overlay.querySelectorAll('.dl-title.en, .dl-subtitle.en').forEach(function(el) {
+        el.style.display = isAr ? 'none' : 'block';
+      });
+
+      overlay.classList.add('visible');
+
+      // Auto-dismiss after 9s (Google Drive export usually done by then)
+      clearTimeout(_dlTimer);
+      _dlTimer = setTimeout(hideDlModal, 9000);
+    }
+
+    function hideDlModal() {
+      overlay.classList.remove('visible');
+      clearTimeout(_dlTimer);
+    }
+
+    // Attach to all word-btn links
+    document.querySelectorAll('.word-btn').forEach(function(btn) {
+      btn.addEventListener('click', function(e) {
+        showDlModal();
+        // Let the native download proceed; dismiss if user comes back to tab
+        window.addEventListener('focus', function onFocus() {
+          setTimeout(hideDlModal, 1500);
+          window.removeEventListener('focus', onFocus);
+        });
+      });
+    });
+
+    // Close on overlay click (outside modal box)
+    overlay.addEventListener('click', function(e) {
+      if (e.target === overlay) hideDlModal();
+    });
+  })();
 
   /* ── Init ── */
   setLang('ar');
